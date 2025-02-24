@@ -61,7 +61,7 @@ let navigate=useNavigate()
 <div>
 
 
-<Box className='houm '  height={{xs:"100vh",md:"90vh"}}>
+<Box className='houm '  bgcolor={"transparent"}  height={{xs:"100vh",md:"90vh"}}>
 
 
 
@@ -98,6 +98,9 @@ At Floating Oil Skimmer RC Drone, we are dedicated to developing innovative solu
   alt="The house from the offer."
   src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&w=350&dpr=2"
 /> */}
+
+
+<Box   className="bg"   width={"100%"}>
 <Main/>
 <Box    padding={3}  m={2} border={"1px solid grey"} borderRadius={"8px"} >
 
@@ -158,6 +161,8 @@ At Floating Oil Skimmer RC Drone, we are committed to developing innovative and 
 
       </Stack>
 
+
+</Box>
 
 
 

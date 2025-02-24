@@ -157,9 +157,9 @@ console.log(emailv,"kkk")
     let navigate=useNavigate()
 
   return (
-    <React.Fragment>
+    <div className='bg'>
       <Divider />
-      <Container
+      <Container 
         sx={{
           display: 'flex',
           flexDirection: 'column',
@@ -359,6 +359,6 @@ console.log(emailv,"kkk")
           </Stack>
         </Box>
       </Container>
-    </React.Fragment>
+    </div>
   );
 }

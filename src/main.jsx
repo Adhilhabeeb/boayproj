@@ -44,7 +44,7 @@ createRoot(document.getElementById('root')).render(
   <Route path="Works" element={<Work/>} />
 
 </Routes>
-<Footer/>
+<Footer  />
 </BrowserRouter>
 
 </ThemeProvider>

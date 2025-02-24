@@ -20,7 +20,7 @@ const Canvas = () => {
 
       let   renderer = new THREE.WebGLRenderer({ antialias: true, depthWrite: true });
       renderer.autoClearDepth = true;  // Ensure that depth is cleared correctly.
-
+      renderer.setClearColor( 0xffffff, 0);
         renderer.setSize(window.innerWidth, window.innerHeight);
         mountRef.current.appendChild(renderer.domElement);
 
