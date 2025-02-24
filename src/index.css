@@ -10,8 +10,8 @@ body{
     background-color: var(--mainclor) !important;
 }
 .houm{
-    /* background-color: var(--mainclor); */
-   /* background-image: url("../public/uno.png"); */
+    background-color: var(--mainclor); 
+    background-image: url("../public/uno.png");
    background-repeat: no-repeat;
    background-size: 50%;
    background-position:center;
@@ -28,4 +28,16 @@ a{
 
 canvas{
 z-index: 999;
+}
+
+.hh{
+    z-index: 888888;
+    background-color: "red";
+    position: fixed;
+    top: 0;
+    bottom: 3vh;
+  padding-left: 4vh;
+padding-top: 90vh;
+    width: 10%;
+
 }

@@ -10,6 +10,9 @@ const Canvas = () => {
     const mountRef = useRef(null);
 
     useEffect(() => {
+        let loader=new THREE.Loader()
+
+        let textloader=new THREE.TextureLoader()
         // Scene Setup
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 100);
@@ -25,14 +28,17 @@ const Canvas = () => {
         mountRef.current.appendChild(renderer.domElement);
 
         // Plane Mesh (Floor)
-        const geometry = new THREE.PlaneGeometry(5, 5,50,50);  // Bigger size for better view
+        const geometry = new THREE.PlaneGeometry(5, 5,100,100);  // Bigger size for better view
         let material2 = new THREE.MeshBasicMaterial({ color: "red", side: THREE.DoubleSide });
         let shadermat=new THREE.ShaderMaterial({
             vertexShader:vert,fragmentShader:frag,
-            uniforms:{
-                time:new THREE.Uniform(0)
+            uniforms: {
+                time: { value: 0 },
+                baseco: { value: textloader.load("/yy.jpg") },
+                roughv: { value: textloader.load("/rough.jpg") },
+                wate: { value: textloader.load("/wat.jpg") }
             }
-
+            
 
         })
         // Add Fog (Linear Fog)

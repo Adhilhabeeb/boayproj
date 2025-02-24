@@ -11,7 +11,12 @@ import Contact from './contact/Contact.jsx'
 import  Work  from  "./work/Work.jsx"
 import Footer from './footer/Footer.jsx'
 import Canvas from './Canvas.jsx'
+
+import * as THREE from 'three';
+import AudioComponent from './AudioComponent.jsx'
+
 const pages = ['Home', 'Contact', 'Works'];
+
 
 let theme=createTheme({
 
@@ -35,7 +40,8 @@ createRoot(document.getElementById('root')).render(
 <ThemeProvider theme={theme}>
 <BrowserRouter>
 <Header pages={pages}/>
-<Canvas/>
+{/* <Canvas/> */}
+<AudioComponent/>
 
 <Routes>
 

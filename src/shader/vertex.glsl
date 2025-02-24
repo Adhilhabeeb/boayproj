@@ -93,7 +93,7 @@ vnormal=normal;
     // a. The DISTANCE from the pixel to the center
   
  vec4 modelPosition = modelMatrix * vec4(position, 1.0);
-  modelPosition.y+=cnoise(position+sin(time*0.4)*2. )/2.;
+  modelPosition.y+=cnoise(position+sin(time*0.4)*3. )/2.;
  vec4 viewPosition = viewMatrix * modelPosition;
         vec4 projectedPosition = projectionMatrix * viewPosition;
         gl_Position = projectedPosition;

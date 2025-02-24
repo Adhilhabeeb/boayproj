@@ -123,10 +123,13 @@ import Typography from '@mui/material/Typography';
 import FacebookIcon from '@mui/icons-material/GitHub';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import TwitterIcon from '@mui/icons-material/X';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { NavLink, useNavigate, useSearchParams } from 'react-router-dom';
  import  {useState,useEffect} from "react"
+import { styled } from '@mui/material';
+    const pages = ['Home', 'Contact', 'Works'];
 
 function Copyright() {
+
   return (
     <Typography variant="body2" sx={{ color: 'text.secondary', mt: 1 }}>
       {'Copyright © '}
@@ -141,7 +144,13 @@ function Copyright() {
 
 export default function Footer() {
 
-
+  let   Contactbtn =styled("button")(({theme})=>({
+    color:theme.palette.othercolor.black,
+                  fontFamily:theme.palette.othercolor.gemfamily,
+                  borderRadius:"20px",width:"200px",
+                  height:"5vh",minHeight:"20px",
+                  backgroundColor: theme.palette.othercolor.bfclr
+                    }))
 
 useEffect(() => {
  
@@ -192,14 +201,14 @@ console.log(emailv,"kkk")
                 gutterBottom
                 sx={{ fontWeight: 600, mt: 2 }}
               >
-                Join the newsletter
+                Join   our Work
               </Typography>
               <Typography variant="body2" sx={{ color: 'text.secondary', mb: 2 }}>
-                Subscribe for weekly updates. No spams ever!
+                Subscribe or  updates.  
               </Typography>
-              <InputLabel htmlFor="email-newsletter">Email</InputLabel>
+              {/* <InputLabel htmlFor="email-newsletter">Email</InputLabel> */}
               <Stack direction="row" spacing={1} useFlexGap>
-                <TextField
+                {/* <TextField
 
                   onChange={(e)=>{
                     setemailv(e.target.value)
@@ -219,8 +228,8 @@ console.log(emailv,"kkk")
                     },
                   }}
                   sx={{ width: '250px' }}
-                />
-                <Button  onClick={()=>{
+                /> */}
+                {/* <Button  onClick={()=>{
                   setspara({class:emailv})
                    navigate("Contact")
                 }}
@@ -230,11 +239,23 @@ console.log(emailv,"kkk")
                   sx={{ flexShrink: 0 }}
                 >
                  Contact
-                </Button>
+                </Button> */}
+                <Contactbtn  onClick={()=>{
+                  setspara({class:emailv})
+  navigate("Contact")
+}}   sx={{fontSize:"large",
+   '&:hover': {
+
+    backgroundColor: `othercolor.black`,color:`othercolor.btnwhite`
+
+  }
+}}>
+    Contact Us 
+</Contactbtn>
               </Stack>
             </Box>
           </Box>
-          <Box
+          {/* <Box
             sx={{
               display: { xs: 'none', sm: 'flex' },
               flexDirection: 'column',
@@ -259,7 +280,7 @@ console.log(emailv,"kkk")
             <Link color="text.secondary" variant="body2" href="#">
               FAQs
             </Link>
-          </Box>
+          </Box> */}
           <Box
             sx={{
               display: { xs: 'none', sm: 'flex' },
@@ -267,18 +288,32 @@ console.log(emailv,"kkk")
               gap: 1,
             }}
           >
-            <Typography variant="body2" sx={{ fontWeight: 'medium' }}>
+            <Typography variant="h5" sx={{ fontWeight: 'medium' }}>
               Company
             </Typography>
-            <Link color="text.secondary" variant="body2" href="#">
+            {/* <Link color="text.secondary" variant="body2" href="#">
               About us
+            </Link> */}
+       
+            {pages.map(d=>(
+// //              
+d =="Home"?<NavLink to={"/"}>
+   
+   <Link color="text.secondary" variant="body2" href="#">
+         {d}
             </Link>
-            <Link color="text.secondary" variant="body2" href="#">
-              Careers
+               
+</NavLink>:<NavLink  to={d} >
+<Link color="text.secondary" variant="body2" href="#">
+            {d}
             </Link>
-            <Link color="text.secondary" variant="body2" href="#">
-              Press
-            </Link>
+
+</NavLink>
+      
+
+
+            ))}
+       
           </Box>
           <Box
             sx={{

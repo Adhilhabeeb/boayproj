@@ -102,6 +102,7 @@ At Floating Oil Skimmer RC Drone, we are dedicated to developing innovative solu
 
 <Box   className="bg"   width={"100%"}>
 <Main/>
+
 <Box    padding={3}  m={2} border={"1px solid grey"} borderRadius={"8px"} >
 
 

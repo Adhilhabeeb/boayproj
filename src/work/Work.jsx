@@ -1,29 +1,42 @@
-import { Box } from '@mui/material'
-import React from 'react'
+import { Box ,TextField} from '@mui/material'
+import React, { useState } from 'react'
 
 import { useAuthState }   from "react-firebase-hooks/auth"
 
 import { GoogleAuthProvider, signInWithRedirect } from "firebase/auth";
 import { auth } from '../Firebase';
+import EmailForm from '../Emailsenter';
 function Work() {
-    const googleSignIn = () => {
-        alert("in")
-        const provider = new GoogleAuthProvider();
-        signInWithRedirect(auth, provider);
-      };
-      const signOut = () => {
-        alert("out")
-
-        auth.signOut();
-      };
-    const [user] = useAuthState(auth);
+const [asmin, setasmin] = useState(false)
+const [value, setvalue] = useState("")
+  let handleChange =(e)=>{
+    setvalue(e.target.value)
+if (e.target.value=="admin") {
+  setasmin(true)
+}
+  }
+  function check(user) {
+    
+  }
   return (
     <div>
-   <Box width={"100%"} height={"90vh"}>
-{user?"onddee":"illla"}
 
-<button  onClick={googleSignIn}>sign in </button>
-<button onClick={signOut}>signout </button>
+      <Box>
+
+         <TextField
+                        fullWidth
+                        type="text"
+                        label="username"
+                        name="subject"
+                       
+                        onChange={handleChange}
+                        required
+                      />
+      </Box>
+   <Box width={"100%"} height={"90vh"}>
+
+        {asmin? <EmailForm/>:"sorry please   we are updating "}
+
     </Box>
     </div>
   )
