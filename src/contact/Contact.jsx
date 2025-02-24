@@ -144,12 +144,12 @@ const Contact = () => {
 
             <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
               <PhoneIcon sx={{ mr: 2, color: "#b0a488" }} />
-              <Typography variant="body1">+1 (123) 456-7890</Typography>
+              <Typography variant="body1">9074461730</Typography>
             </Box>
 
             <Box sx={{ display: "flex", alignItems: "center" }}>
               <LocationOnIcon sx={{ mr: 2, color: "#b0a488" }} />
-              <Typography variant="body1">123 Green Tech Avenue, Eco City, USA</Typography>
+              <Typography variant="body1">MES COLLEGE MARAMPALLY,ALUVA</Typography>
             </Box>
           </Box>
         </Grid>
