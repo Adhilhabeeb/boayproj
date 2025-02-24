@@ -1,0 +1,31 @@
+ :root{
+    --mainclor:#deceaa;overflow-x: hidden;
+    --textclr:black;
+ }
+.bg{
+    background-color: var(--mainclor);
+}
+body{
+    position: relative;
+    background-color: var(--mainclor) !important;
+}
+.houm{
+    /* background-color: var(--mainclor); */
+   /* background-image: url("../public/uno.png"); */
+   background-repeat: no-repeat;
+   background-size: 50%;
+   background-position:center;
+ 
+}
+.headerclr{
+background-color:var(--mainclor) !important ;
+
+}
+a{
+    text-decoration: none;
+    color:var(--textclr);
+}
+
+canvas{
+z-index: 999;
+}

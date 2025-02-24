@@ -1,0 +1,39 @@
+
+
+@import url('https://fonts.googleapis.com/css2?family=Playwrite+IT+Moderna:wght@100..400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playwrite+IT+Moderna&family=Shafarik&display=swap');
+canvas {position: fixed;
+    z-index: -1;
+}
+.mai{
+    background-color: red;
+}
+
+*{ 
+
+    
+    margin: 0;padding: 0;
+}
+
+.fonti{
+    font-family: "Shafarik";
+    font-weight: 400;
+  font-style: normal;
+  
+  }
+  body {
+    font-family: 'Shafarik', sans-serif;
+}
+
+.fony{
+
+    font-family: "Sigmar", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+   text-align: center;
+}
+
+#helo{
+    background-color: red;
+   
+}
