@@ -1,69 +1,21 @@
-// import { useState } from "react";
-
-// const EmailForm = () => {
-//   const [formData, setFormData] = useState({
-//     to: "",
-//     subject: "",
-//     message: "",
-//   });
-
-//   const handleChange = (e) => {
-//     setFormData({ ...formData, [e.target.name]: e.target.value });
-//   };
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-//     // headers: { "Content-Type": "application/json; charset=utf-8" }, // ✅ Fixed here
-
-//     try {
-//         const response = await fetch("https://email-lcvx.onrender.com/send-email", {
-//             method: "POST",
-//             headers: {
-//                 "Content-Type": "application/json",
-//             },
-//             body: JSON.stringify({
-//                 to: formData.to,
-//                 subject: formData.subject,
-//                 message: formData.message,
-//             }),
-//         });
-
-//         const data = await response.json();
-        
-//         if (response.ok) {
-//             alert("Email sent successfully!");
-//         } else {
-//             alert("Failed to send email: " + data.error);
-//         }
-//     } catch (error) {
-//         alert("Error: " + error.message);
-//     }
-// };
 
 
 
-
-
-//   return (
-//     <form onSubmit={handleSubmit}>
-//       <input type="email" name="to" placeholder="Recipient Email" onChange={handleChange}   required/>
-//       <input type="text" name="subject" placeholder="Subject" onChange={handleChange}required />
-//       <textarea name="message" placeholder="Message" onChange={handleChange} required ></textarea>
-//       <button type="submit">Send Email</button>
-//     </form>
-//   );
-// };
-
-// export default EmailForm;
-
-
-
-
-
-
-import { useState ,useEffect} from "react";
+import { useState ,useEffect, useContext} from "react";
 import { TextField, Button, Container, Paper, Typography, Grid , Select, MenuItem, InputLabel, FormControl} from "@mui/material";
+import { addDoc, collection, serverTimestamp , query,
+  orderBy,
+  onSnapshot,
+  limit, } from "firebase/firestore";
+import { db } from "./Firebase";
+import { ourcontext } from "./Rotersetup";
+
+
 
 const EmailForm = () => {
+  
+      const {user,setuser} = useContext(ourcontext);
+console.log(user,"uu")
   const [formData, setFormData] = useState({
     to: "",
     subject: "",
@@ -72,26 +24,21 @@ const EmailForm = () => {
   });
 
 
-const [emailto, setemailto] = useState(null)
+
+
 const [palceholderr, setpalceholderr] = useState("")
 const [valusemsg, setvalusemsg] = useState("")
 const [labeel, setlabeel] = useState("")
 const [messinputs, setmessinputs] = useState({
-  work:"",valuerate:""
+  work:"",valuerate:"",to:"" ,subject:"",location:"",text:""
+})
+let [works,setworks]=useState({
+  work:"",usergmail:"",Loaction:"",text:""
 })
 useEffect(() => {
-    
-
-  if (!formData.to==""&&!messinputs.valuerate.trim("")==""&&!labeel=="") {
-    setemailto(formData.to)
-    textfieldsfunc(labeel,messinputs.valuerate,emailto)
-
-// console.log(formData.to,"jjjjjj",messinputs.valuerate,"rrtt",labeel,"emmttoo",emailto)
-
-  }
-}, [formData.to,messinputs.valuerate,labeel])
-
-
+  console.log(works,"kjkjjjjj")
+  
+}, [works])
 
 
   const handleChange = (e) => {
@@ -104,17 +51,125 @@ useEffect(() => {
 
 
 useEffect(() => {
-
-
-   console.log(messinputs.valuerate,"And",messinputs.work,"noooooo",formData.subject)
-   setvalusemsg(messinputs.valuerate)
-  textfieldsfunc(messinputs.work,messinputs.valuerate)
-}, [messinputs.valuerate])
-
-  useEffect(() => {
-   console.log(formData.subject,"fffff")
-  }, [formData.subject])
   
+
+  console.log(messinputs,"mm")
+
+if (messinputs.work.trim()!=""&& messinputs.to.trim()!=="" && messinputs.valuerate.trim()!="") {
+  sntmess(messinputs.work,messinputs.valuerate,messinputs.to)
+}
+if (messinputs.work.trim()!=""&& messinputs.to.trim()!=="" && messinputs.valuerate.trim()!=""&&messinputs.location.trim()!=""&& messinputs.text.trim()!="") {
+ addwork(messinputs.work,messinputs.location,messinputs.text,messinputs.to)
+}
+
+}, [messinputs])
+ 
+  
+
+function addwork(work,Loaction,text,usergmail) {
+  setworks(()=>{
+
+    return{
+
+      work,Loaction,text,usergmail
+    }
+// switch(work){
+//   case "Oil skimming " :
+
+
+//   break;
+//   case "Ph monitering ":
+//     return{
+
+//       work:work,
+//       location:location,
+//       text:text,
+//       usergmail:to
+//     }
+//   break;
+//   case "TDS monitering ":
+//     return{
+
+//       work:work,
+//       location:location,
+//       text:text,
+//       usergmail:to
+//     }
+//   break;
+//   case "Tempeature monitering ":
+//     return{
+
+//       work:work,
+//       location:location,
+//       text:text,
+//       usergmail:to
+//     }
+
+// break;
+
+  
+// }
+  })
+}
+function sntmess(work,value,to) {
+
+setFormData((prev)=>{
+
+
+  switch(work) {
+    case "Oil skimming " :
+    return  {
+        to: to,
+        subject: `Oil Skimmer Alert: Value Recorded - ${value}`,
+        message: `Dear ${to},\n\nWe would like to inform you that our oil skimmer has recorded a value of ${value}. Please review the data and take necessary action if required.\n\nBest Regards`
+      }
+      break;
+    case "Ph monitering ":
+
+    return {
+      to: to,
+      subject: `pH Monitoring Update: Current Value - ${value}`,
+      message: `Dear ${to},\n\nOur pH monitoring system has recorded a value of ${value}. Kindly review the details and let us know if any action is needed.\n\nBest Regards`
+    }
+
+      // code block
+      break;
+      case "TDS monitering ":
+        return {
+          to: to,
+          subject: `TDS Monitoring Alert: Measured Value - ${value}`,
+          message: `Dear ${to},\n\nOur TDS monitoring system has detected a value of ${value}. Please check the readings and proceed accordingly.\n\nBest Regards`
+        }
+        // code block
+        break;
+        case "Tempeature monitering ":
+          // code block
+          return {
+            to: to,
+            subject: `Temperature Alert: Current Reading - ${value}°C`,
+            message: `Dear ${to},\n\nOur temperature monitoring system has recorded a temperature of ${value}°C. Please review the data and take necessary action if required.\n\nBest Regards`
+          }
+    
+    default:
+      // code block
+  }
+
+
+
+})
+
+  
+}
+
+
+
+useEffect(() => {
+  console.log(formData,"fordata")
+
+
+}, [formData])
+
+
   useEffect(() => {
    let textfi=textfieldsfunc(messinputs.work)
 
@@ -122,9 +177,9 @@ useEffect(() => {
   }, [messinputs.work])
   
   const handleSubmit = async (e) => {
-
-    e.preventDefault();
-// console.log(formData,"foooooooo")
+     e.preventDefault();
+    
+console.log(formData,"foooooooo")
 
     try {
       const response = await fetch("https://email-lcvx.onrender.com/send-email", {
@@ -146,6 +201,8 @@ useEffect(() => {
     } catch (error) {
       alert("Error: " + error.message);
     }
+
+ sendMessage()
   };
   function textfieldsfunc(deta,value,to) {
   
@@ -155,40 +212,13 @@ useEffect(() => {
         // code block
  
         // console.log("oiilll")
-if (value) {
-  
-  console.log(value,"bnbbb")
-setFormData({...formData,subject:`Oil Skimmer Update ${value} – ml Oil Collected`})
-  
-}
 
 
 setlabeel("oil skimming")
   
       setpalceholderr("enter the oil value")
   
-      if (emailto && deta&& value) {
-setFormData({...formData,subject:`Oil Skimmer Update ${value} – ml Oil Collected`})
-
-
-// console.log( "too:",emailto,"valuse:",value,"work:",deta)
-        
-let mess=`
-Dear ${emailto},
-
-I hope this email finds you well.
-
-We would like to inform you that ${value}ml of oil has been successfully collected using the oil skimmer. Please let us know if you require any further details or assistance regarding this process.
-
-Feel free to reach out if you have any questions.
-
-Best regards,
-Our Team
-`
-
-setFormData({...formData,message:mess})
-
-      }
+   
 
 
 // console.log(deta,value,to,"iiiiiiiisss",emailto)
@@ -196,12 +226,7 @@ setFormData({...formData,message:mess})
         break;
       case "Ph monitering ":
 
-      if (value) {
-  
-        console.log(value,"bnbbb")
-      setFormData({...formData,subject:`pH Monitoring Update  ${value}– Latest pH Value Recorded`})
-        
-      }
+      
       
         // code block
 setlabeel( "Ph monitering ")
@@ -210,35 +235,10 @@ setlabeel( "Ph monitering ")
       setpalceholderr("enter the Ph value")
 
 
-      if (emailto && deta&& value) {
-
-        // console.log( "too:",emailto,"valuse:",value,"work:",deta)
-                
-        let mess = `
-        Dear ${emailto},
-        
-        I hope this email finds you well.
-        
-        We would like to inform you that the latest pH value recorded is ${value}. Please review the data and let us know if you require any further details or assistance regarding this report.
-        
-        Feel free to reach out if you have any questions.
-        
-        Best regards,  
-        Our Team
-        `;
-        
-        
-        setFormData({...formData,message:mess})
-        
-              }
+     
         break;
         case "TDS monitering ":
-          if (value) {
-  
-            console.log(value,"bnbbb")
-          setFormData({...formData,subject:`TDS Monitoring Report ${value}– Latest Water Quality Update`})
-            
-          }
+         
 setlabeel("TDS monitering " )
 
           // code block
@@ -246,38 +246,10 @@ setlabeel("TDS monitering " )
   
           console.log("tdsmmm")
 
-          if (emailto && deta&& value) {
-
-            // console.log( "too:",emailto,"valuse:",value,"work:",deta)
-            let mess = `
-            Dear ${emailto},
-            
-            I hope this email finds you well.
-            
-            We would like to inform you that the latest TDS (Total Dissolved Solids) value recorded is ${value}. Please review the data and let us know if you require any further details or assistance regarding this report.
-            
-            Feel free to reach out if you have any questions.
-            
-            Best regards,  
-            Our Team
-            `;
-            
-           
-        
-            
-            
-            
-            setFormData({...formData,message:mess})
-            
-                  }
+     
           break;
           case "Tempeature monitering ":
-            if (value) {
-  
-              console.log(value,"bnbbb")
-            setFormData({...formData,subject:`Temperature Monitoring Update ${value}– Latest Readings`})
-              
-            }
+           
 setlabeel("Tempeature monitering ")
 
             // code block
@@ -286,27 +258,7 @@ setlabeel("Tempeature monitering ")
             console.log("temppppp")
   
   
-            if (emailto && deta&& value) {
-
-              // console.log( "too:",emailto,"valuse:",value,"work:",deta)
-                      
-              let mess = `
-            Dear ${emailto},
-            
-            I hope this email finds you well.
-            
-            We would like to inform you that the latest temperature reading recorded is ${value}°C. Please review the data and let us know if you require any further details or assistance regarding this report.
-            
-            Feel free to reach out if you have any questions.
-            
-            Best regards,  
-            Our Team
-        `;
-              
-              
-              setFormData({...formData,message:mess})
-              
-                    }
+          
             break;
       default:
         // code bloc
@@ -317,13 +269,38 @@ setlabeel("Tempeature monitering ")
     }
   
   }
+
+  const sendMessage = async (event) => {
+    
+
+   
+    if (works.Loaction.trim() === ""&&works.usergmail.trim() === ""&& works.text.trim() === "",works.work.trim() === "") {
+      alert("Enter valid message");
+      return;
+    }
+  
+
+
+    
+    await addDoc(collection(db, "works"), {
+      text:works.text,
+      location:works.Loaction,
+      email: works.usergmail ,
+     work:works.work,
+
+      createdAt: serverTimestamp(),
+  
+    });
+   
+   
+  };
   return (
     <Container maxWidth="sm">
       <Paper elevation={3} sx={{ padding: 4, marginTop: 5 }}>
         <Typography variant="h5" gutterBottom align="center">
           Send an Email
         </Typography>
-        <form onSubmit={handleSubmit}>
+        <form  onSubmit={handleSubmit}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
@@ -331,8 +308,8 @@ setlabeel("Tempeature monitering ")
                 type="email"
                 label="Recipient Email"
                 name="to"
-                value={formData.to}
-                onChange={handleChange}
+                value={messinputs.to}
+                onChange={handleChangemess}
                 required
               />
             </Grid>
@@ -348,7 +325,28 @@ setlabeel("Tempeature monitering ")
                 required
               />
             </Grid>
-          
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                type="text"
+                label="Location"
+                name="location"
+                value={messinputs.location}
+                onChange={handleChangemess}
+                required
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                type="text"
+                label="text"
+                name="text"
+                value={messinputs.text}
+                onChange={handleChangemess}
+                required
+              />
+            </Grid>
 <Grid item xs={12}>
 
  <FormControl fullWidth>
@@ -397,12 +395,16 @@ setlabeel("Tempeature monitering ")
            
       
             <Grid item xs={12}>
-              <Button fullWidth variant="contained" color="primary" type="submit">
+              <Button   fullWidth variant="contained" color="primary" type="submit">
                 Send Email
               </Button>
             </Grid>
           </Grid>
         </form>
+ 
+        {/* <Button  fullWidth variant="contained" color="primary" >
+                Send firebse
+              </Button> */}
       </Paper>
     </Container>
   );

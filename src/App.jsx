@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { createContext, useState ,useEffect, useContext} from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
@@ -17,7 +17,16 @@ import { red } from '@mui/material/colors'
 import Main from './mainp/main'
 import Footer from './footer/Footer'
 import { useNavigate } from 'react-router-dom'
+import Register from './Register'
+import { ourcontext } from './Rotersetup'
+
+
+
 function App() {
+
+    const {user,setuser} = useContext(ourcontext);
+
+  
 let navigate=useNavigate()
   let   Contactbtn =styled("button")(({theme})=>({
     color:theme.palette.othercolor.black,
@@ -58,7 +67,11 @@ let navigate=useNavigate()
   const [count, setCount] = useState(0)
 
   return (
-<div>
+  
+
+<>
+
+{user?<div>
 
 
 <Box className='houm '  bgcolor={"transparent"}  height={{xs:"100vh",md:"90vh"}}>
@@ -167,7 +180,14 @@ At Floating Oil Skimmer RC Drone, we are committed to developing innovative and 
 
 
 
-</div>
+</div>:<Register/>}
+
+
+
+</>
+
+  
+
   )
 }
 

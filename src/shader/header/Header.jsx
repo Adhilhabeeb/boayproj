@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useContext, useRef, useState ,useEffect} from 'react'
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
@@ -12,10 +12,12 @@ import { Button, Link, Stack, styled, Typography } from '@mui/material'
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { ourcontext } from '../../Rotersetup';
 
 function Header(props) {
 
+      const {user,setuser,admin} = useContext(ourcontext);
 
 
     let ancorrf=useRef(document.querySelector(".menuicon"))
@@ -23,7 +25,17 @@ function Header(props) {
     const handleToggle = () => {
         setOpen((prevOpen) => !prevOpen);
       };
+  
+      
+      let   Contactbtn =styled("button")(({theme})=>({
+        color:theme.palette.othercolor.black,
+                      fontFamily:theme.palette.othercolor.gemfamily,
+                      borderRadius:"20px",width:"200px",
+                      height:"5vh",minHeight:"20px",
+                      backgroundColor: theme.palette.othercolor.bfclr
+                        }))
     
+     
       const handleClose = (event) => {
         if (ancorrf.current && ancorrf.current.contains(event.target)) {
           return;
@@ -31,6 +43,7 @@ function Header(props) {
     
         setOpen(false);
       };
+      let navigate=useNavigate()
     
 const [menub, setmenub] = useState(false)
   let   Greenbutton =styled(Button)(({theme})=>({
@@ -61,6 +74,18 @@ const [menub, setmenub] = useState(false)
             
               }))
  
+
+              function handinout(e) {
+              if (user) {
+                setuser(false)
+
+                localStorage.removeItem("userboat")
+
+
+                navigate("/")
+              }
+                
+              }
   const [count, setCount] = useState(0)
   return (
     <>
@@ -106,7 +131,7 @@ const [menub, setmenub] = useState(false)
 <Navlinkll  underline="none">
         {page}
       </Navlinkll>
-</NavLink>:<NavLink  to={page} >
+</NavLink>:   user&&<NavLink  to={page} >
 <Navlinkll  underline="none">
         {page}
       </Navlinkll>
@@ -115,9 +140,23 @@ const [menub, setmenub] = useState(false)
       
       
       }
+     
 </Greenbutton>
               
             ))}
+
+
+
+             <Contactbtn  onClick={handinout}
+             sx={{fontSize:"large",
+              '&:hover': {
+           
+               backgroundColor: `othercolor.black`,color:`othercolor.btnwhite`
+           
+             }
+           }}>
+       {user?"Signout":"Sign in"}
+      </Contactbtn>
           </Box>
           <Box sx={{display:{xs:"flex",md:"none"}} }  width={"100%"}    >
 
@@ -166,17 +205,45 @@ const [menub, setmenub] = useState(false)
 return   <MenuItem onClick={handleClose} key={m}>
 < Typologo  >
 
-    {m =="home"?<Link  underline="none">
-homie
-      </Link>:<Link href={`#${m}`}  underline="none">
-{m}
-      </Link>}
+    {m =="Home"?
+    
+    <NavLink to={"/"}>
+
+
+    
+
+      <Navlinkll  underline="none">
+        {m}
+      </Navlinkll>
+    </NavLink>
+    
+    
+      
+      
+      
+      
+      
+      :
+      user&&<NavLink  to={m} >
+
+
+
+
+<Navlinkll  underline="none">
+        {m}
+      </Navlinkll>
+      </NavLink>
+      
+      }
 </Typologo>
 </MenuItem>
        
      })}
         
-      
+      <MenuItem>
+      <Button  onClick={handinout}>
+       {user?"Signout":"Sign in"}
+      </Button></MenuItem>
      
       </Menu>
 </Box>

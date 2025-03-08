@@ -1,15 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Container, Grid, TextField, Typography, Button, Box, Select, MenuItem, InputLabel, FormControl } from "@mui/material";
 import EmailIcon from "@mui/icons-material/Email";
 import PhoneIcon from "@mui/icons-material/Phone";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import { Message } from "@mui/icons-material";
 import emailjs from '@emailjs/browser'
+import { ourcontext } from "../Rotersetup";
 const Contact = () => {
+
+      const {user,setuser} = useContext(ourcontext);
+  console.log(user,"uddfgh")
     let serviceid="service_1h3s6uf"
     let publickey="CII1mDnwg5YBq3LKO"
     let tempid="template_bjzepg8"
-    const [wrk, setwrk] = useState({name:"",email:"",location:"",mobile:"",work:"",contact:"",need:"",})
+    const [wrk, setwrk] = useState({name:"",email:user.email?? "",location:"",mobile:"",work:"",contact:"",need:"",})
     const handleChange = (event) => {
     console.log(event.target,"evvv")
     setwrk({...wrk,[event.target.name]:event.target.value})
@@ -76,7 +80,7 @@ const Contact = () => {
 
         };
       useEffect(() => {
-    console.log(templeteparams,)
+console.log(wrk,"wwww")
       }, [wrk])
       
   return (
@@ -94,7 +98,7 @@ const Contact = () => {
 
           <Box component="form" sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
             <TextField label="Your Name" variant="outlined" name="name"  onChange={handleChange} fullWidth required />
-            <TextField label="Email Address" variant="outlined" name="email"  onChange={handleChange} fullWidth required type="email" />
+            <TextField label="Email Address" variant="outlined" name="email" value={wrk.email} onChange={handleChange} fullWidth required type="email" />
             <TextField label="location" variant="outlined" name="location"  onChange={handleChange} fullWidth required />
             <TextField label="mobile" variant="outlined" name="mobile"  onChange={handleChange} fullWidth required />
             

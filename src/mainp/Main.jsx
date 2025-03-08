@@ -29,7 +29,7 @@
 //               maxWidth: { xs: 350, md: 250 },
 //             }}
 //             alt="The house from the offer."
-//             src={"../../public/skimming.PNG"}
+//             src={"../assets/skimming.PNG"}
 //           />,
         
 //           <Box
@@ -41,7 +41,7 @@
 //             maxWidth: { xs: 350, md: 250 },
 //           }}
 //           alt="The house from the offer."
-//           src={"../../public/ph.PNG"}
+//           src={"../assets/ph.PNG"}
 //         />,
 //         <Box
 //         component="img"
@@ -52,7 +52,7 @@
 //           maxWidth: { xs: 350, md: 250 },
 //         }}
 //         alt="The house from the offer."
-//         src={"../../public/tds.PNG"}
+//         src={"../assets/tds.PNG"}
 //       />,
 //       <Box
 //       component="img"
@@ -63,7 +63,7 @@
 //         maxWidth: { xs: 350, md: 250 },
 //       }}
 //       alt="The house from the offer."
-//       src={"../../public/temp.PNG"}
+//       src={"../assets/temp.PNG"}
 //     />]
 //           let   Typogem =styled(Typography)(({theme})=>({
       
@@ -136,6 +136,12 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
+import skim from "../assets/skimming.png"
+import ph from "../assets/ph.png"
+import tds from "../assets/tds.png"
+import temp from  "../assets/temp.png"
+
+
 
 function Main() {
   let Typogem = styled(Typography)(({ theme }) => ({
@@ -146,11 +152,57 @@ function Main() {
     fontFamily: theme.palette.othercolor.shadfont,
   }));
 
-  let icons = [
-    "../../public/skimming.PNG",
-    "../../public/ph.PNG",
-    "../../public/tds.PNG",
-    "../../public/temp.PNG",
+  let icons = [ <Box
+    component="img"
+    sx={{
+      display: "block",
+      marginLeft: "auto",
+      marginRight: "auto",
+      maxHeight: { xs: 233, md: 167 },
+      maxWidth: { xs: 350, md: 250 },
+    }}
+    alt="Slide Image"
+    src={skim}
+  />
+    ,<Box
+    component="img"
+    sx={{
+      display: "block",
+      marginLeft: "auto",
+      marginRight: "auto",
+      maxHeight: { xs: 233, md: 167 },
+      maxWidth: { xs: 350, md: 250 },
+    }}
+    alt="Slide Image"
+    src={ph}
+  />,
+  <Box
+    component="img"
+    sx={{
+      display: "block",
+      marginLeft: "auto",
+      marginRight: "auto",
+      maxHeight: { xs: 233, md: 167 },
+      maxWidth: { xs: 350, md: 250 },
+    }}
+    alt="Slide Image"
+    src={ tds  }
+  />,
+<Box
+    component="img"
+    sx={{
+      display: "block",
+      marginLeft: "auto",
+      marginRight: "auto",
+      maxHeight: { xs: 233, md: 167 },
+      maxWidth: { xs: 350, md: 250 },
+    }}
+    alt="Slide Image"
+    src={temp}
+  />
+
+
+   ,
   ];
 
   return (
@@ -159,7 +211,7 @@ function Main() {
         <Swiper
           modules={[ Autoplay]}
           slidesPerView={1} // Adjust for different screen sizes
-          spaceBetween={20}
+          spaceBetween={5}
           loop={true}
          
           pagination={{ clickable: true }}
@@ -178,18 +230,37 @@ function Main() {
                 sx={{ borderRadius: "8px", border: "0.5px solid black" }}
                 padding={2}
               >
-                <Box
-                  component="img"
-                  sx={{
-                    display: "block",
-                    marginLeft: "auto",
-                    marginRight: "auto",
-                    maxHeight: { xs: 233, md: 167 },
-                    maxWidth: { xs: 350, md: 250 },
-                  }}
-                  alt="Slide Image"
-                  src={icons[index]}
-                />
+               
+
+
+{icons[index]}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 <Divider />
                 <Typogem variant="p" component="h2">
                   {item.title}

@@ -27,5 +27,3 @@ const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
 // export const db = getFirestore(app);
 export { auth, provider, signInWithPopup,db };
-
-// Import the functions you need from the SDKs you need
